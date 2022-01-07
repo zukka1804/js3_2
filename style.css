@@ -1,0 +1,148 @@
+@charset "utf-8";
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+   color: black;
+font-family:"Open Sans",'ヒラギノ角ゴ ProN W3', Hiragino Kaku Gothic ProN, "メイリオ", Meiryo, sans-serif;   
+   font-size: 1.6rem;
+   background-color: #7494c0;
+}   
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+h2{
+    text-align:center;
+    padding:18px 0 18px 0;
+    font-size: 30px;
+    -webkit-border-radius:6px 6px 0px 0px;
+    -moz-border-radius:6px 6px 0px 0px;
+    border-radius:6px 6px 0px 0px;
+    background-color:#2ABCA7;
+    color:#FAFAFA;
+}
+
+p{
+    max-width:200px; 
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 17px 13px 15px 18px;
+    border-radius: 12px;
+    background:whitesmoke;
+    box-sizing:border-box;
+    margin: 10px; 
+    line-height:1.5;
+    font-size: 15px;
+}
+
+li{
+padding: 5px;
+}
+
+p.name{
+    max-width:200px; 
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 17px 13px 15px 18px;
+    border-radius: 12px;
+    background:whitesmoke;
+    box-sizing:border-box;
+    margin: 10px; 
+    line-height:1.5;
+    font-size: 15px;
+}
+
+.about{
+    /* display: flex; */
+}
+
+.talk2{
+    max-width:500px; /*最大幅は任意*/
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 17px 13px 15px 18px;
+    border-radius: 12px;
+    background: #99dddd;/*色は任意*/
+    box-sizing:border-box;
+    margin: 30px; 
+    line-height:1.5;
+    /* justify-content: flex-start; */
+
+    /* order: 2;
+    content: "";
+    position: absolute;
+    border: 10px solid transparent; */
+    /* left: -26px;
+    border-right: 22px solid #99dddd; */
+}
+
+.name{
+    max-width:initial; /*最大幅は任意*/
+    display: initial;
+    flex-wrap: initial;
+    position: initial;
+    padding: initial;
+    border-radius: initial;
+    background: initial;/*色は任意*/
+    box-sizing:initial;
+    margin: initial; 
+    line-height:initial;
+
+
+    /* background: initial; */
+    /* background: rgb(235, 36, 53); */
+    /* margin: 10px; */
+    /* max-width: 200px; */
+}
+
+.about{
+    display: flex;
+    background: red;
+    margin: 20px;
+
+}
+
+.q_resalt{
+
+  /*   align-items: center; */
+    display: flex;
+    
+}
+
+.talk{
+height: 300px;overflow: auto;
+
+}
+
+
+/* .name{
+width: 660px;
+
+} */
+
+/* 
+
+CSSを適用していく時は、下記テンプレートをコピペして
+波括弧の間に命令を書くようにしましょう！
+
+↓↓↓↓↓↓↓↓↓↓↓↓↓↓ ここからテンプレート ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+.nickname{
+
+}
+
+↑↑↑↑↑↑↑↑↑↑↑↑↑↑ ここからテンプレート ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+---------------*/
+
+/*画面全体の基本設定*/
+
+/* 画像を伸縮させるために必要 */ 

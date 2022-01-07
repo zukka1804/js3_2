@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Firebase_version9_RealtimeDB(G'sACADEMY初学者用サンプル)</title>
+<link rel="stylesheet" href="reset.css">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+
+<div>
+    <!-- <dl class="inquiry"> -->
+      <h2 class="inquiry_delail">お問い合わせフォーム</h2>
+      <!-- / <div class="subject"><input type="button" id="uname"> -->
+      <!-- <dd class="name" input type="button" id="uname"> -->
+      <p>お問い合わせ事項</p>
+      <ul name=form1>
+      <li><label for="donation"><input type="radio" name="kind" id="donation" value="寄付全般について知りたい"
+                  class="uname" checked>寄付全般について知りたい</label></li>
+      <li><label for="method"><input type="radio" name="kind" id="method" value="寄付の方法について知りたい"
+                  class="uname2">寄付の方法について知りたい</label></li>
+      <li><label for="will"><input type="radio" name="kind" id="will" value="遺言書について知りたい"
+                  class="uname3">遺言書について知りたい</label></li>
+      <li><label for="group"><input type="radio" name="kind" id="group" value="寄付先の団体について知りたい"
+                  class="uname4">寄付先の団体について知りたい</label></li>
+      </ul>
+        <!-- <p id="uname"><label for="donation"><input type="radio" name="kind" id="donation" value="寄付について知りたい"
+                    class="label-item">寄付全般について知りたい</label></p>
+        <p id="uname"><label for="method"><input type="radio" name="kind" id="method" value="寄付の方法について知りたい"
+                    class="label-item">寄付の方法について知りたい</label></p>
+        <p id="uname"><label for="will"><input type="radio" name="kind" id="will" value="遺言書について知りたい"
+                    class="label-item">遺言書について知りたい</label></p>
+        <p id="uname"><label for="group"><input type="radio" name="kind" id="group" value="寄付先の団体について知りたい"
+                    class="label-item">寄付先の団体について知りたい</label></p> -->
+
+      <!-- </dd> -->
+    <!-- </div> -->
+  <!-- </dl> -->
+</div>
+
+    <!-- <p class="name"> 件名:</p> -->
+    <!-- <div class="subject"><input type="text" id="uname" > </div> -->
+
+    <div class="letter_body">
+
+
+      
+    <p class="name">お問い合わせの詳細</p><br>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send" value="check">送信</button>
+    </div>
+    <!-- チャット文字列表示 -->
+  <div class="q_resalt">
+    <ul id="output" class="talk"></ul>
+    <div id="delete"></div>
+    <!-- <button>delete</button> -->
+  </div>
+</div>
+<!--/ コンテンツ表示画面 -->
+
+
+
+<!-- JQuery   CDNのほうが高速のことが多い -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCq3xpfPJL5bmkTCoXXDrGnCzAHTSQ479s",
+      authDomain: "chat2-a5807.firebaseapp.com",
+      projectId: "chat2-a5807",
+      storageBucket: "chat2-a5807.appspot.com",
+      messagingSenderId: "247212074218",
+      appId: "1:247212074218:web:f9cd26044271e9043c2393"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app); //RealtimeDatabaseを利用する（データベースの接続）
+    const dbRef = ref(db,"chat2");//RealtimeDatabase"chat2"を利用する（どのデータベースを参照するか）
+
+    // 送信処理
+// window.addEventListener('DOMContentLoaded', function(){
+
+// // 「name=kind」を持つ全てのラジオボタンを取得
+// let input_kind = document.querySelectorAll("input[name=kind]");
+// for(let element of input_kind) {
+//   element.addEventListener('change',function(){
+//     // if(this.checked) {   
+//       if(this.checked) {
+//       console.log(this.value);
+//       let b=(this.value);
+//       console.log(b);
+//         }
+//   });
+// }
+// });
+
+
+
+
+    $("#send").on("click",function(e){
+      console.log("aaaaa");
+
+
+    let msg = {
+      uname:$("input[type='radio']:checked").val(),
+      text: $("#text").val()    //最後はカンマ付けない。付けると次があるとしてエラーになる
+  }
+    const newPostRef = push(dbRef); // データを一意なもの（ユニークなもの）にするための記述
+    set(newPostRef, msg) // データを保存
+});
+
+
+//       uname:
+//       $("#send").click(function() {
+//     if ($('label[name=kind]:eq(1)').prop('checked')) {
+//         $('label[name=kind]:eq(0)').prop('checked', true);
+//     } else if {
+//         $('input[name=lang]:eq(1)').prop('checked', true);
+//     } else if {
+//       $('input[name=lang]:eq(2)').prop('checked', true);
+//     }
+// });
+
+
+//         // uname: $(".uname").val(),
+//         uname: $('label[name=radio-change]').click(function){
+//           if ($('label[name=kind-change]'))
+
+//         }
+        
+        
+//         .val(),
+        
+        
+        // getElementByNameFromDocument('kind').name.val(),
+        
+
+
+
+
+
+//     //ボタン削除
+// const get_about = document.getElementsByClassName('about')[0];
+// const taskSubmit = document.getElementsByClassName('task_submit')[0];
+// const taskList = document.getElementsByClassName('task_list')[0];
+
+// const addTasks = (task) => {
+//     // 入力したタスクを追加・表示
+//     const listItem = document.createElement('question');
+//     const showItem = taskList.appendChild(listItem);
+//     showItem.innerHTML = task;
+
+
+// 受信処理
+onChildAdded(dbRef, function(data){
+    const msg = data.val();  //jqueryのvalとは違う
+    const key = data.key;
+    //表示用テキスト・HTMLを作成
+
+    // const deleteButton = document.createElement('button');
+    // deleteButton.innerHTML = 'Delete';
+    // $("#delete").append(deleteButton);
+
+    let h = `<li id='${key}' class='talk2'>`;
+        h += msg.uname;
+        h += '<br>';
+        h += msg.text;
+        // h += $("#delete")
+        h += '</li>';
+        $("#output").append(h); //#outputの最後に追加
+    
+
+
+    
+    // listItem.appendChild(deleteButton);
+});
+
+// 削除
+$("#output").on('click',function(e){
+console.log(e);
+  const thisID = e.target.id;
+  remove(ref(db, `chat2/${thisID}`));
+  $(`#${thisID}`).slideUp(200);
+  // alert(thisID);
+  // console.log("ああああ");
+});
+
+
+// onChildRemoved(dbRef,function(data){
+
+// })
+
+
+//   $(".talk").on("click",function(e){
+//         console.log("トーク");
+//         const thisID = e.target.id;
+//     // const deletePostRef = $('p').attr('id');
+//     remove(ref(db, `chat2/${thisID}`));
+//     // $(`#${thisID}`).$(selector).slideUp(200);
+// });
+
+
+// $(".talk").on("click", function(){
+//   console.log('abc');
+//   // alert(e.target.id); 
+  // const thisID = target.id;
+  //   // const deletePostRef = $('p').attr('id');
+  //   remove(ref(db, `chat2/${thisID}`));
+  //   $(`#${thisID}`).$(selector).slideUp(200);
+// });
+  
+  
+//   const msg = {
+//         uname: $(".uname").val(),
+//         text: $("#text").val()    //最後はカンマ付けない。付けると次があるとしてエラーになる
+//   }
+//     const deletePostRef = remove(); // データを一意なもの（ユニークなもの）にするための記述
+//     set(deletePostRef, msg) // データを保存
+// });
+
+
+
+
+// dbRef(msg).child(h).remove();
+
+
+
+
+// onChildRemoved(dbRef,function(data){
+
+
+// }
+
+// )
+
+
+
+
+
+
+// document.getElementById('p').addEventListener('click',function() {
+// firebase.database().ref('#uname').remove().then(function(){
+// alert('Delete');
+// });
+// });
+
+// $("p").on("click", function(event){
+  
+//   const ref = db.ref('server/saving-data/fireblog/posts');
+
+// // Get the data on a post that has been removed
+// ref.on('child_removed', (snapshot) => {
+//   const deletedPost = snapshot.val();
+//   console.log('The blog post titled \'' + deletedPost.title + '\' has been deleted');
+// })});
+
+
+
+// // Get a reference to our posts
+// const ref = db.ref('server/saving-data/fireblog/posts');
+
+// // Get the data on a post that has been removed
+// ref.on('child_removed', (snapshot) => {
+//   const deletedPost = snapshot.val();
+//   console.log('The blog post titled \'' + deletedPost.title + '\' has been deleted');
+// });
+
+
+// // db.ref('').remove(msg,key){
+
+
+// // }
+
+
+
+// firebaseからブラウザを通じたて削除したいところ
+// firebase.database().ref("freetalks").child(msg.uname).remove()
+//         .then(()=>{
+//           commit("deleteTalk", payload)
+//         }
+
+
+
+// $("#q_resalt").on("click",function(){
+
+//   onChildRemoved(dbRef, function(data){
+//     const msg = data.val();  //jqueryのvalとは違う
+//     const key = data.key;
+//   }
+
+// )
+
+// $("#send").on("click",function(){
+//     const msg = {
+//         uname: $("#uname").val(),
+//         text: $("#text").val()    //最後はカンマ付けない。付けると次があるとしてエラーになる
+//   }
+//     const newPostRef = push(dbRef); // データを一意なもの（ユニークなもの）にするための記述
+//     set(newPostRef, msg) // データを保存
+// });
+
+
+
+
+
+    //表示用テキスト・HTMLを作成
+
+    // const deleteButton = document.createElement('button');
+    // deleteButton.innerHTML = 'Delete';
+    // $("#delete").append(deleteButton);
+
+    // let h = '<p>';
+    //     h += msg.uname;
+    //     h += '<br>';
+    //     h += msg.text;
+    //     // h += $("#delete")
+    //     h += '</p>';
+    //     $("#output").append(h); //#outputの最後に追加
+    
+    //   // })
+    //   ;
+
+    
+    // listItem.appendChild(deleteButton);
+
+
+// ---------------------
+//outputの大きさを変える
+//最も新しいコメントが常に表示されるようにする
+// base64  画像を文字列化する
+//スタンプ機能
+
+//先生からいただいたもの---------------------------------------
+$("#text").on("keydown", function(event){
+    if (event.keyCode == 13) {   //EnterKey=13
+      const msg = {
+        uname: $(".uname").val(),
+        text: $("#text").val()
+      }
+      const newPostRef = push(dbRef); //ユニークKEYを生成
+      set(newPostRef, msg);           //"chat"にユニークKEYをつけてオブジェクトデータを登録
+    }
+console.log(event);
+});
+//先生からいただいたもの---------------------------------------
+
+
+// //ボタン削除
+// const taskValue = document.getElementsByClassName('about')[0];
+// const taskSubmit = document.getElementsByClassName('task_submit')[0];
+// const taskList = document.getElementsByClassName('task_list')[0];
+
+// //追加ボタンを作成
+// const addTasks = (task) => {
+//     // 入力したタスクを追加・表示
+//     const listItem = document.createElement('question');
+//     const showItem = taskList.appendChild(listItem);
+//     showItem.innerHTML = task;
+
+//     //タスクに削除ボタンを付与
+
+//     const deleteButton = document.createElement('button');
+//     deleteButton.innerHTML = 'Delete';
+//     listItem.appendChild(deleteButton);
+
+//     //削除ボタンをクリックし、イベントを発動（タスクが削除）
+//     deleteButton.addEventListener('click', evt => {
+//       evt.preventDefault();
+//       deleteTasks(deleteButton);
+//     });
+// };
+
+// //削除ボタンにタスクを消す機能を付与
+// const deleteTasks = (deleteButton) => {
+//     const chosenTask = deleteButton.closest('li');
+//     taskList.removeChild(chosenTask);
+// };
+
+// //追加ボタンをクリックし、イベントを発動（タスクが追加）
+// taskSubmit.addEventListener('click', evt => {
+//     evt.preventDefault();
+//     const task = taskValue.value;
+//     addTasks(task);
+//     taskValue.value = '';
+// });
+
+
+
+
+
+
+
+
+    //  if(event.keyCode === 13){
+//     const msg = {
+//         uname: $("#uname").val(),
+//         text: $("#text").val()
+//     }
+//     const newPostRef = push(dbRef); // データを一意なもの（ユニークなもの）にするための記述
+//     set(newPostRef, msg) // データを保存
+//  }
+    // console.log("event");
+
+
+
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
+
